@@ -14,6 +14,7 @@ type Logger struct
 {
     LogFileName string
     DirLocation string
+    fullPath string
 }
 
 func isWindows() bool {
@@ -57,12 +58,27 @@ func makeLoggingDir() error {
 
 func makeLoggingFile() error {
     fileLocation := filepath.Join(mainLogger.DirLocation, mainLogger.LogFileName)
+    mainLogger.fullPath = fileLocation
     _, err := os.Create(fileLocation)
     return err 
 }
 
-func PrintLn() {
-    
+func Print(str string) {
+    file, err := os.OpenFile(mainLogger.fullPath, os.O_APPEND|os.O_WRONLY, 0644)
+    if (err != nil) {
+        panic(err)
+    }
+    file.WriteString(str)
+    file.Close()
+}
+
+func PrintLn(str string) {
+    file, err := os.OpenFile(mainLogger.fullPath, os.O_APPEND|os.O_WRONLY, 0644)
+    if (err != nil) {
+        panic(err)
+    }
+    file.WriteString(str + "\n")
+    file.Close()
 }
 
 func Init(logger Logger) {
