@@ -1,3 +1,3 @@
-module github/hamilt79/logging
+module github/hamilt79/gologging
 
 go 1.22.0
