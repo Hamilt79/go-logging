@@ -12,8 +12,8 @@ var mainLogger Logger
 
 type Logger struct
 {
-    logFileName string
-    dirLocation string
+    LogFileName string
+    DirLocation string
 }
 
 func isWindows() bool {
