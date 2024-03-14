@@ -46,17 +46,17 @@ func expandDirectory(location string) (string, error) {
 }
 
 func makeLoggingDir() error { 
-    exists := isValidDir(mainLogger.dirLocation) 
+    exists := isValidDir(mainLogger.DirLocation) 
     if (exists) {
         return nil;
     }
-    err := os.MkdirAll(mainLogger.dirLocation, 0755)
+    err := os.MkdirAll(mainLogger.DirLocation, 0755)
 
     return err
 }
 
 func makeLoggingFile() error {
-    fileLocation := filepath.Join(mainLogger.dirLocation, mainLogger.logFileName)
+    fileLocation := filepath.Join(mainLogger.DirLocation, mainLogger.LogFileName)
     _, err := os.Create(fileLocation)
     return err 
 }
@@ -66,11 +66,11 @@ func PrintLn() {
 }
 
 func Init(logger Logger) {
-    newLocation, err := expandDirectory(logger.dirLocation)
+    newLocation, err := expandDirectory(logger.DirLocation)
     if err != nil {
         panic(err)
     }
-    logger.dirLocation = newLocation
+    logger.DirLocation = newLocation
     mainLogger = logger
     err = makeLoggingDir()
     if err != nil {
@@ -83,6 +83,6 @@ func Init(logger Logger) {
 }
 
 func main() {
-    logger := Logger { logFileName: "TestLogg.txt", dirLocation: "~/.logging/"} 
+    logger := Logger { LogFileName: "TestLogg.txt", DirLocation: "~/.logging/"} 
     Init(logger)
 }
